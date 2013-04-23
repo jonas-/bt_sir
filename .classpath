@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ros"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ros_messages"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ros_bootstrap"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/xmlrpc"/>
+	<classpathentry kind="lib" path="/ros_bootstrap/bin/org"/>
+	<classpathentry kind="lib" path="/ros_messages/bin/geometry_msgs"/>
+	<classpathentry kind="lib" path="/ros/bin/org"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>
