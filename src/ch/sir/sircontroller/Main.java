@@ -1,5 +1,7 @@
 package ch.sir.sircontroller;
 
+// Test change for commit
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Bitmap;
