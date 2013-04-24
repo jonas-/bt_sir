@@ -32,11 +32,15 @@ public final class R {
         public static final int test=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f090004;
-        public static final int input=0x7f090001;
-        public static final int input1=0x7f090002;
-        public static final int main=0x7f090000;
-        public static final int text=0x7f090003;
+        public static final int action_settings=0x7f090008;
+        public static final int bottom_l=0x7f090004;
+        public static final int bottom_m=0x7f090005;
+        public static final int bottom_r=0x7f090007;
+        public static final int input=0x7f090003;
+        public static final int text=0x7f090006;
+        public static final int top_l=0x7f090000;
+        public static final int top_m=0x7f090001;
+        public static final int top_r=0x7f090002;
     }
     public static final class layout {
         public static final int layout_main=0x7f030000;

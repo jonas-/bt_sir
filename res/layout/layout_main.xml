@@ -8,9 +8,10 @@
 	<LinearLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="0dip"
-	    android:layout_weight="75">
+	    android:layout_weight="50">
 	
 	    	<RelativeLayout 
+	    	    android:id="@+id/top_l"
 	    	    android:layout_width="0dip"
 	    	    android:layout_weight="25"
 	    	    android:layout_height="match_parent"
@@ -19,7 +20,7 @@
 	    	</RelativeLayout>
 	    	
 	    	<RelativeLayout 
-	    	    android:id="@+id/main"
+	    	    android:id="@+id/top_m"
 	    	    android:layout_width="0dip"
 	    	    android:layout_weight="50"
 	    	    android:layout_height="match_parent"
@@ -27,6 +28,7 @@
 	    	    
 	    	</RelativeLayout>
 	    	<RelativeLayout 
+	    	    android:id="@+id/top_r"
 	    	    android:layout_width="0dip"
 	    	    android:layout_weight="25"
 	    	    android:layout_height="match_parent"
@@ -42,10 +44,10 @@
 	    android:orientation="horizontal"
 	    android:layout_width="match_parent"
 	    android:layout_height="0dip"
-	    android:layout_weight="25">
+	    android:layout_weight="50">
 	
 	    	<RelativeLayout 
-	    	    android:id="@+id/input1"
+	    	    android:id="@+id/bottom_l"
 	    	    android:layout_width="0dip"
 	    	    android:layout_weight="25"
 	    	    android:layout_height="match_parent"
@@ -53,6 +55,7 @@
 	    	    
 	    	</RelativeLayout>
 	    	<RelativeLayout 
+	    	    android:id="@+id/bottom_m"
 	    	    android:layout_width="0dip"
 	    	    android:layout_weight="50"
 	    	    android:layout_height="match_parent"
@@ -65,6 +68,7 @@
 	    	    
 	    	</RelativeLayout>
 	    	<RelativeLayout 
+	    	    android:id="@+id/bottom_r"
 	    	    android:layout_width="0dip"
 	    	    android:layout_weight="25"
 	    	    android:layout_height="match_parent"

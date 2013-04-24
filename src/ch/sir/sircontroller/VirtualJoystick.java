@@ -27,39 +27,57 @@ public class VirtualJoystick {
 	
 	public int bitWidth = 50;
 	public int bitHeight = 50;
-	public int startPosX = 250;
-	public int startPosY = 250;
+	public int startPosX;
+	public int startPosY;
 	public int radius = 100;
 	
 	private boolean dragging = false;
 	private boolean draggingPos = true;
 	
-	public VirtualJoystick(RelativeLayout layout) {
+	private boolean _moveX = true;
+	private boolean _moveY = true;
+	
+	private int _posX;
+	private int _posY;
+	
+	// Constructor
+	public VirtualJoystick(RelativeLayout layout,int posx, int posy) {
+		// Set Startposition
+		this.startPosX = posx;
+		this.startPosY = posy;
+		
+		_posX = startPosX-bitWidth/2;
+		_posY = startPosY-bitWidth/2;
+		
 		// Create View
 		this.layout = layout;
 		stick = new ImageView(layout.getContext());
 		
-		// Add joystick bitmap to View
+		// Create joystick bitmap
 		pic = BitmapFactory.decodeResource(layout.getResources(), R.drawable.circle);
 		picRes = Bitmap.createScaledBitmap(pic, bitWidth, bitHeight, false);
 		stick.setImageBitmap(picRes);
 		params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		params.setMargins(startPosX-bitWidth/2, startPosY-bitWidth/2, 0, 0);
-		stick.setLayoutParams(params);
-		
-		layout.addView(stick); // Add joystick to layout
+		params.setMargins(_posX, _posY, 0, 0);
+		stick.setLayoutParams(params);	
 		
 		// Draw Circle
-		Bitmap pallet = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
+		int wScreen = startPosX+radius;
+		int hScreen= startPosY+radius;
+		Bitmap pallet = Bitmap.createBitmap(wScreen, hScreen, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(pallet);
 		Paint paint = new Paint(); 
 		paint.setStyle(Paint.Style.STROKE);
 		canvas.drawCircle(startPosX, startPosY, radius, paint);
+		canvas.drawLine(startPosX, startPosY+radius, startPosX, startPosY-radius, paint); // draw vertical line
+		canvas.drawLine(startPosX+radius, startPosY, startPosX-radius, startPosY, paint); // draw hotizontal line
 		
 		ImageView circle = new ImageView(layout.getContext());
 		circle.setImageBitmap(pallet);
 		
-		layout.addView(circle); // add Circle to Layout
+		// Add graphics to view
+		layout.addView(circle); // add Circle+ to Layout
+		layout.addView(stick); // Add joystick to layout
 		
 		// make layout sensitive
 		layout.setOnTouchListener(myListener);
@@ -73,9 +91,23 @@ public class VirtualJoystick {
 		    //Log.i("info", "Touched MainLayout");
 		    
 			updatePos(event);
+			//Log.i("var", Integer.toString(getDx()));
 			
 		    return true;
 		}};
+	
+	public void lockAxis(char axis, boolean bol) {
+		if(axis == 'x') {this._moveX = bol;}
+		if(axis == 'y') {this._moveY =bol;}
+	}
+	
+	public float getDx() {
+		return ((float) -(this.startPosX - this._posX-bitWidth/2))/radius;
+	}
+	
+	public float getDy() {
+		return (float) (this.startPosY - this._posY-bitHeight/2)/radius;
+	}
 		
 	private void updatePos(MotionEvent event) {
 		double tabX = event.getX();
@@ -129,11 +161,20 @@ public class VirtualJoystick {
 				posX = startPosX + dx - bitWidth/2;
 				posY = startPosY + dy - bitHeight/2;
 			}
-			params.setMargins(posX, posY, 0, 0);
+			// lock position to axis
+			if(!_moveX) {posX = startPosX-bitWidth/2;}
+			if(!_moveY) {posY = startPosY-bitWidth/2;}
+			
+			// set final position
+			this._posX = posX;
+			this._posY = posY;
+			params.setMargins(_posX, _posY, 0, 0);
 			stick.setLayoutParams(params);
 		} 
 		else { // if release, set position back
-			params.setMargins(startPosX-bitWidth/2, startPosY-bitHeight/2, 0, 0);
+			_posX = startPosX-bitWidth/2;
+			_posY = startPosY-bitHeight/2;
+			params.setMargins(_posX, _posY, 0, 0);
 			stick.setLayoutParams(params);
 		}	
 	}		
