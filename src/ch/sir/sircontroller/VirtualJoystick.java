@@ -1,5 +1,11 @@
 package ch.sir.sircontroller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import ch.sir.sircontroller.JoyHandler.JoyHandlerListener;
+
 import android.app.Activity;
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
@@ -18,6 +24,30 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 public class VirtualJoystick {
+	
+	// ---- Event handler ------------
+	private List _listeners = new ArrayList();
+	
+	public synchronized void addEventListener(JoyHandlerListener listener) {
+		//Log.i("Joy", "addEventListener called");
+		_listeners.add(listener);
+	}
+	public synchronized void removeEventListener(JoyHandlerListener listener) {
+		//Log.i("Joy", "removeEventListener called");
+		_listeners.remove(listener);
+	}
+	
+	private synchronized void firePosition() {
+		//Log.i("Joy", "fireEvent called");
+		JoyHandler event = new JoyHandler(this, getDx(), getDy(), "Name bla");
+		Iterator i = _listeners.iterator();
+		
+		while(i.hasNext()) {
+			((JoyHandlerListener) i.next()).handleJoyEvent(event);
+		}
+	}	
+	// ---------------
+	
 	
 	private ImageView stick;
 	private Bitmap pic;
@@ -176,6 +206,7 @@ public class VirtualJoystick {
 			_posY = startPosY-bitHeight/2;
 			params.setMargins(_posX, _posY, 0, 0);
 			stick.setLayoutParams(params);
-		}	
-	}		
+		}
+		firePosition();
+	}	
 }
